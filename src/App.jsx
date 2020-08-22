@@ -50,7 +50,7 @@ localStorage.setItem('Todo',JSON.stringify(todoList))
        </Tooltip>
         <br/>
         <ol>{
-         JSON.parse(localStorage.getItem("Todo"))!==?
+         JSON.parse(localStorage.getItem("Todo"))!==null?
         JSON.parse(localStorage.getItem("Todo")).map((item,index)=>{
             return(
                 <TodoList 
