@@ -9,6 +9,7 @@ var App = () => {
   var [todoList, setTodoList] = useState(
     localStorage.getItem("Todo") ? JSON.parse(localStorage.getItem("Todo")) : []
   );
+  console.log(todoList);
   var AddInput = (e) => {
     var { value } = e.target;
     setInput(value);
@@ -57,18 +58,17 @@ var App = () => {
           </Tooltip>
           <br />
           <ol>
-            {localStorage.getItem("Todo")
-              ? JSON.parse(localStorage.getItem("Todo")).map((item, index) => {
-                  return (
-                    <TodoList
-                      key={index}
-                      id={index}
-                      value={item}
-                      onSelect={deleteItem}
-                    />
-                  );
-                })
-              : null}
+            {todoList &&
+              todoList.map((item, index) => {
+                return (
+                  <TodoList
+                    key={index}
+                    id={index}
+                    value={item}
+                    onSelect={deleteItem}
+                  />
+                );
+              })}
           </ol>
         </center>
       </div>
