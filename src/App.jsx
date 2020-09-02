@@ -9,12 +9,13 @@ var App = () => {
 
   useEffect(() => {
     if (!localStorage.getItem("Todo")) {
-      JSON.stringify(localStorage.setItem("Todo", "[]"));
+      JSON.stringify(localStorage.setItem("Todo", []));
     }
   }, []);
   var [todoList, setTodoList] = useState(
-    JSON.parse(localStorage.getItem("Todo"))
+    localStorage.getItem("Todo") ? JSON.parse(localStorage.getItem("Todo")) : []
   );
+  console.log(todoList);
 
   var AddInput = (e) => {
     var { value } = e.target;
@@ -27,8 +28,6 @@ var App = () => {
       });
 
       setInput("");
-    } else {
-      localStorage.setItem("Todo", []);
     }
   };
 
@@ -40,7 +39,7 @@ var App = () => {
     });
     localStorage.setItem("Todo", JSON.stringify(todoList));
   };
-
+  localStorage.setItem("Todo", JSON.stringify(todoList));
   return (
     <>
       <div>
@@ -66,16 +65,17 @@ var App = () => {
           </Tooltip>
           <br />
           <ol>
-            {todoList.map((item, index) => {
-              return (
-                <TodoList
-                  key={index}
-                  id={index}
-                  value={item}
-                  onSelect={deleteItem}
-                />
-              );
-            })}
+            {todoList &&
+              todoList.map((item, index) => {
+                return (
+                  <TodoList
+                    key={index}
+                    id={index}
+                    value={item}
+                    onSelect={deleteItem}
+                  />
+                );
+              })}
           </ol>
         </center>
       </div>
