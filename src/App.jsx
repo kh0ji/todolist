@@ -6,7 +6,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import TextField from '@material-ui/core/TextField';
 var App=()=>{
     var [input, setInput]=useState("");
-    var [todoList, setTodoList]=useState(JSON.parse(localStorage.getItem("Todo"))===null?[]:JSON.parse(localStorage.getItem("Todo")));
+    var [todoList, setTodoList]=useState(JSON.parse(localStorage.getItem("Todo"))?JSON.parse(localStorage.getItem("Todo"))):[];
 var AddInput=(e)=>{
 var{value}=e.target
 setInput(value);
