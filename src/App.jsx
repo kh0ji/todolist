@@ -57,7 +57,7 @@ var App = () => {
           </Tooltip>
           <br />
           <ol>
-            {JSON.parse(localStorage.getItem("Todo")) !== null
+            {localStorage.getItem("Todo")
               ? JSON.parse(localStorage.getItem("Todo")).map((item, index) => {
                   return (
                     <TodoList
