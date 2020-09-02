@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TodoList from "./Todo";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import IconButton from "@material-ui/core/IconButton";
@@ -6,10 +6,16 @@ import Tooltip from "@material-ui/core/Tooltip";
 import TextField from "@material-ui/core/TextField";
 var App = () => {
   var [input, setInput] = useState("");
+
+  useEffect(() => {
+    if (!localStorage.getItem("Todo")) {
+      JSON.stringify(localStorage.setItem("Todo", "[]"));
+    }
+  }, []);
   var [todoList, setTodoList] = useState(
-    localStorage.getItem("Todo") ? JSON.parse(localStorage.getItem("Todo")) : []
+    JSON.parse(localStorage.getItem("Todo"))
   );
-  console.log(todoList);
+
   var AddInput = (e) => {
     var { value } = e.target;
     setInput(value);
@@ -21,8 +27,11 @@ var App = () => {
       });
 
       setInput("");
+    } else {
+      localStorage.setItem("Todo", []);
     }
   };
+
   var deleteItem = (id) => {
     setTodoList((prev) => {
       return prev.filter((arryE, index) => {
@@ -31,7 +40,6 @@ var App = () => {
     });
     localStorage.setItem("Todo", JSON.stringify(todoList));
   };
-  localStorage.setItem("Todo", JSON.stringify(todoList));
 
   return (
     <>
@@ -58,17 +66,16 @@ var App = () => {
           </Tooltip>
           <br />
           <ol>
-            {todoList &&
-              todoList.map((item, index) => {
-                return (
-                  <TodoList
-                    key={index}
-                    id={index}
-                    value={item}
-                    onSelect={deleteItem}
-                  />
-                );
-              })}
+            {todoList.map((item, index) => {
+              return (
+                <TodoList
+                  key={index}
+                  id={index}
+                  value={item}
+                  onSelect={deleteItem}
+                />
+              );
+            })}
           </ol>
         </center>
       </div>
