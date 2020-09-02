@@ -65,7 +65,7 @@ var App = () => {
           </Tooltip>
           <br />
           <ol>
-            {todoList &&
+            {/* {todoList &&
               todoList.map((item, index) => {
                 return (
                   <TodoList
@@ -75,7 +75,7 @@ var App = () => {
                     onSelect={deleteItem}
                   />
                 );
-              })}
+              })} */}
           </ol>
         </center>
       </div>
